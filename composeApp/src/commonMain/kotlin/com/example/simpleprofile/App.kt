@@ -12,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -58,7 +60,11 @@ fun UserProfileScreen() {
                 .size(196.dp)
                 .offset(x = (-96).dp, y = 11.dp),
             contentScale = ContentScale.Crop,
-            alpha = 0.9f
+            alpha = 0.4f,
+            colorFilter = ColorFilter.tint(
+                color = Color(0xFFEF2A39), // 这里的颜色会影响混合效果，根据需要调整
+                blendMode = BlendMode.Overlay
+            )
         )
 
         Image(
@@ -68,7 +74,11 @@ fun UserProfileScreen() {
                 .size(196.dp)
                 .offset(x = 324.dp, y = 11.dp),
             contentScale = ContentScale.Crop,
-            alpha = 0.9f
+            alpha = 0.4f,
+            colorFilter = ColorFilter.tint(
+                color = Color(0xFFEF2A39), // 这里的颜色会影响混合效果，根据需要调整
+                blendMode = BlendMode.Overlay
+            )
         )
 
         // Navigation icons
