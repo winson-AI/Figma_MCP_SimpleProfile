@@ -75,7 +75,7 @@ fun UserProfileScreen() {
         IconButton(
             onClick = { /* Handle back navigation */ },
             modifier = Modifier
-                .offset(x = 15.dp, y = 26.dp)
+                .offset(x = 15.dp, y = 28.dp)
                 .size(28.dp)
         ) {
             Icon(
@@ -88,7 +88,8 @@ fun UserProfileScreen() {
         IconButton(
             onClick = { /* Handle settings */ },
             modifier = Modifier
-                .offset(x = 386.dp, y = 28.dp)
+                .align(Alignment.TopEnd)
+                .padding(end = 15.dp, top = 28.dp)
                 .size(24.dp)
         ) {
             Icon(
@@ -232,48 +233,51 @@ fun ProfileSection(
             .fillMaxWidth()
             .height(71.dp)
     ) {
-        // Background container with cut-out effect
+        /* 下方白色卡片（无变动） */
         Box(
             modifier = Modifier
-                .offset(x = 0.dp, y = 11.dp)
+                .offset(y = 11.dp)
                 .fillMaxWidth()
                 .height(60.dp)
                 .background(Color.White, RoundedCornerShape(10.dp))
-                .border(BorderStroke(1.dp, Color.LightGray.copy(alpha = 0.3f)), RoundedCornerShape(10.dp))
+                .border(
+                    BorderStroke(1.dp, Color.LightGray.copy(alpha = 0.3f)),
+                    RoundedCornerShape(10.dp)
+                )
         )
 
-        // Label background cut-out
-        Box(
+        /* Label 区域：背景自动伸缩 */
+        Row(
             modifier = Modifier
-                .offset(x = 22.dp, y = 0.dp)
-                .width(55.dp)
-                .height(22.dp)
-                .background(Color(0xFFE8E8E8)) // Match parent background color
-        ){
+                .offset(x = 22.dp, y = 0.dp)      // 整体左上角位置保持原设计
+                .background(Color.White, RoundedCornerShape(4.dp))
+                .padding(horizontal = 8.dp, vertical = 3.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(
                 text = label,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
-                color = Color.Gray,
-                modifier = Modifier.offset(x = 29.dp, y = 0.dp)
+                color = Color.Gray
             )
 
             if (showLockIcon) {
+                Spacer(modifier = Modifier.width(6.dp))
                 Icon(
                     painter = painterResource(Res.drawable.ic_lock),
                     contentDescription = "Lock",
                     modifier = Modifier.size(15.dp),
                     tint = Color.Gray
                 )
-                Spacer(modifier = Modifier.width(11.dp))
             }
         }
 
-        // Value text positioned inside container
+        /* Value 文字（仅把硬编码 width 356.dp 改成 weight，防止屏幕宽度变化时溢出） */
         Row(
             modifier = Modifier
                 .offset(x = 39.dp, y = 31.dp)
-                .width(356.dp), // 395 - 39 = 356 (container width minus left offset)
+                .fillMaxWidth()                   // 改为自适应
+                .padding(end = 16.dp),            // 右边留一点呼吸感
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -281,7 +285,7 @@ fun ProfileSection(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color(0xFF3C2F2F),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f)    // 占满剩余
             )
         }
     }
@@ -352,23 +356,22 @@ fun ActionButton(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            if (!isOutlined) {
-                Icon(
-                    painter = painterResource(Res.drawable.ic_edit_combined),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-            }
 
             Text(
                 text = text,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Medium
             )
+            Spacer(modifier = Modifier.width(8.dp))
+            if (!isOutlined) {
+                Icon(
+                    painter = painterResource(Res.drawable.ic_edit_combined),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
 
             if (isOutlined) {
-                Spacer(modifier = Modifier.width(8.dp))
                 Icon(
                     painter = painterResource(Res.drawable.ic_signout_combined),
                     contentDescription = null,
